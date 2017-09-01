@@ -1,0 +1,171 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-6 col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Industry Details
+        </div>
+        <div class="card-block">
+        {{industry_content | slice:0:150}}
+          <br />
+    <a   style="color: #20a8d8;cursor:pointer;"  data-toggle="modal"  (click)="largeModal.show()" >See more</a>
+        <div class="snapshot">
+            <h3>snapshot</h3>
+            <ul class="snap-key">
+                <li  *ngFor="let item of snapshot; let i = index"> <span>{{item.KeyName}}</span><em>{{item.Value}}</em></li>
+                 
+            </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-6">
+      <div class="card">
+        <div class="card-header">
+          News, legal & social
+        </div>
+        <div class="row" style="margin:10px 0px;">
+          <div class="col-md-3 col-sm-6 col-xs-12">
+              <select class="form-control" #t (change)="dataselect(t.value)" [(ngModel)]="category" >
+                  <option value="news">News</option>
+                  <option value="social">Social</option>
+                  <option value="legal">Legal</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12" >
+                <select class="form-control" #types (change)="dataselect_sub($event.target)" [(ngModel)]="subscategory" >
+                  <option  value="all">All</option>
+                  <option *ngFor="let c of news_topic" [value]="c">{{c}}</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <select class="form-control">
+                  <option>To Date </option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <select class="form-control">
+                  <option>From Date </option>
+                </select>
+            </div>
+        </div>
+        <div class="card-block">
+          <canvas baseChart class="chart"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColours"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </div>
+    </div><!--/.col-->
+    <!--/.col-->
+    <div class="col-sm-6 col-md-12">
+      <div class="card">
+        <div class="card-header">
+         {{heading}}
+        </div>
+        <div class="card-block">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table" *ngIf="ok">
+              <tr>
+                <th>date</th>
+                <th>topic</th>
+                <th>Title</th>
+                <th width="40%">Description</th>
+              </tr>
+              <tr *ngFor="let item of newslegalsocial;" >
+                <td>{{ item.Date.$date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{item.Topic}}</td>
+                <td><a href="{{item.URL}}" target="_blank">{{item.Title}}</a></td>
+                <td>{{item.Description}}</td>
+              </tr> 
+            </table>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table" *ngIf="notok">
+              <tr>
+                <th>date</th>
+                <th>Petitioner</th>
+                <th>Respondent</th>
+                <th>Judge</th>
+                <th>Court</th>
+                
+                <th width="40%">Description</th>
+              </tr>
+              <tr *ngFor="let item of newslegalsocial;" >
+                <td>{{ item.Date.$date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{item.Petitioner}}</td>
+                <td>{{item.Respondent}}</td>
+                <td>{{item.Judge}}</td>
+                <td>{{item.Court}}</td>
+                
+                <td>{{item.Description}}</td>
+              </tr> 
+            </table>
+        </div>
+      </div>
+    </div><!--/.col-->
+    <div class="col-sm-6 col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Top Players
+        </div>
+        <div class="card-block">
+         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+              <tr>
+                <th>Company Name</th>
+                <th>Revenue</th>
+                <th>Net Profit</th>
+              </tr>
+              <tr *ngFor="let item of topplayers;" >
+                <td><a style="cursor:pointer" (click)="director_function(item.company.cin_number)" >{{item.company.roc.COMPANY_NAME}}</a></td>
+                <td>{{item.company.roc.Authorized_Capital_Rs}}</td>
+                <td>2%</td>
+              </tr>
+        </table>
+        </div>
+      </div>
+    </div><!--/.col-->
+    <div class="col-sm-6 col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Peers
+        </div>
+        <div class="card-block">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+              <tr>
+                <th>Company Name</th>
+                <th>Revenue</th>
+                <th>Net Profit</th>
+              </tr>
+              <tr *ngFor="let item of topplayers;" >
+                <td><a style="cursor:pointer" (click)="director_function(item.company.cin_number)" >{{item.company.roc.COMPANY_NAME}}</a></td>
+                <td>{{item.company.roc.Authorized_Capital_Rs}}</td>
+                <td>2%</td>
+              </tr>
+        </table>
+        </div>
+      </div>
+    </div><!--/.col-->
+    
+  </div><!--/.row-->
+</div>
+<div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Company Details</h4>
+        <button type="button" class="close" (click)="largeModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{industry_content}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="largeModal.hide()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>

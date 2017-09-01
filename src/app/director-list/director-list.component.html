@@ -1,0 +1,50 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-6 col-md-12">
+      <div class="card">
+        <div class="card-header">
+            Directors
+        </div>
+        
+
+      <div class="row" style="margin:10px 0px;">
+       <div class="col-md-6 col-sm-6 col-xs-12" *ngFor="let item of directorList.signatories;">
+          <div class="card-block">
+           <a style="cursor: pointer;" (click)="director_function(item.main_data.DIN_DPIN)">{{item.pan_data.Name}}</a>
+          <br/>
+            ( {{item.main_data.Designation}})
+          <br/>
+            {{item.main_data.DirectorInfo}}
+          <br/>
+           <!--<a href="">See more</a>-->
+          <div class="snapshot">
+              <h3>snapshot</h3>
+              <ul class="snap-key">
+                  <li> <span>DIN</span><em><a style="cursor: pointer;" (click)="director_function(item.main_data.DIN_DPIN)">{{item.main_data.DIN_DPIN}}</a></em></li>
+                  <li> <span>Date of Birth</span><em>{{item.main_data.DateOfBirth}}</em></li>
+                  <li> <span>Father's Name</span><em>{{item.main_data.FathersName}}</em></li>
+                  <li> <span>PAN</span><em>{{item.pan_data.PermanentAccountNumber}}</em></li>
+                  <li> <span>Social</span>
+                      <em>
+                        <a href="{{item.main_data.Facebook}}">FB</a>
+                      </em>
+                      <em>
+                         <a href="{{item.main_data.Twitter}}">Twitter</a>
+                      </em>
+                      <em>
+                         <a href="{{item.main_data.Linkedin}}">Linkdin</a>
+                     </em>
+                  </li>
+                   
+              </ul>
+          </div>
+          </div>
+        </div>
+      </div>
+
+
+      </div>
+    </div>
+    
+  </div>
+</div>

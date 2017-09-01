@@ -1,0 +1,99 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <!--/.col-->
+    <div class="col-sm-6 col-md-12">
+      <div class="card">
+        <div class="card-header">
+         Ratio Comparision
+        </div>
+        <div class="row" style="margin:10px 0px;">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+              <select class="form-control" [(ngModel)]="ratioType" (change)="filterRatio('ratioType')" >
+              		 <option [value]="">Ratio Type</option>
+                   <option *ngFor="let c of ratioTypeArr" [value]="c">{{c}}</option>
+                </select>
+            </div>
+            <div class="col-md-2 col-sm-6 col-xs-12">
+                <select class="form-control"  [(ngModel)]="ratio" (change)="filterRatio('ratio')" >
+                 <option [value]="">Ratio</option>
+                  <option *ngFor="let c of ratioArr" [value]="c">{{c}}</option>
+                </select>
+            </div>
+             <div class="col-md-2 col-sm-6 col-xs-12">
+                <select class="form-control" [(ngModel)]="year" (change)="filterRatio('year')" >
+                	<option [value]="">Year</option>
+                  <option *ngFor="let c of yearArr" [value]="c">{{c}}</option>
+                </select>
+            </div>
+             <div class="col-md-3 col-sm-6 col-xs-12">
+                <select class="form-control" [(ngModel)]="company" (change)="filterRatio('company')" >
+                	<option [value]="company">Company</option>
+                  <option *ngFor="let c of companyArr" [value]="c">{{c}}</option>
+                </select>
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <select class="form-control" [(ngModel)]="wtPram" (change)="filterRatio('wtPram')" >
+                	<option [value]="">Weight Parameters</option>
+                  <option *ngFor="let c of wtPramArr" [value]="c">{{c}}</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="card-block">
+        <div class="row" style="margin:10px 0px;">
+        	<div class="col-md-6 col-sm-6 col-xs-12">
+            <canvas baseChart class="chart"
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+        </div>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+           <canvas baseChart class="chart"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColours"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+        </div>
+
+      </div>
+
+        </div>
+      </div>
+    </div><!--/.col-->
+    <div class="col-sm-6 col-md-12">
+      <div class="card">
+        <div class="card-header">
+          Card title
+        </div>
+        <div class="card-block">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+              <tr>
+                <th>Ratio Type</th>
+                <th>Ratio</th>
+                <th>Company</th>
+                <th>2016</th>
+                <th>2015</th>
+              </tr>
+              <tr *ngFor="let item of  this.rtListArr;" >
+                <td>{{item.Ratio_category}}</td>
+                <td>{{item.Ratio_sub_category}}</td>
+                <td>{{item.Company_name}}</td>
+                <td>{{item.Ratio_value_2016}}</td>
+                <td>{{item.Ratio_value_2015}}</td>
+              </tr> 
+            </table>
+        </div>
+      </div>
+    </div><!--/.col-->
+    
+  </div><!--/.row-->
+</div>

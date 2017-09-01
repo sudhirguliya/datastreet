@@ -1,0 +1,223 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-6 col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Director Overview
+        </div>
+        <div class="card-block">
+        {{director_content}}
+          <br />
+         <a href="" *ngIf="director_content!=''">See more</a>
+        <div class="snapshot">
+            <h3>snapshot</h3>
+            <ul class="snap-key">
+                <li> <span>Name</span><em >{{name}}</em></li>
+                <li> <span>Designation</span><em>{{designation}}</em></li>
+                <li> <span>DIN</span><em>{{din_dpin}}</em></li>
+                <li> <span>Date of Birth</span><em>{{dob}}</em></li>
+                <li> <span>Father's Name</span><em>{{father_name}}</em></li>
+                <li> <span>PAN</span><em>{{pan}}</em></li>
+                <li> <span>Social</span>
+                     <em>
+                        <a href="{{facebook}}">FB</a>
+                      </em>
+                      <em>
+                         <a href="{{twitter}}">Twitter</a>
+                      </em>
+                      <em>
+                         <a href="{{linkedin}}">Linkdin</a>
+                     </em>
+                 </li>
+                 
+            </ul>
+        </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+    <div class="col-sm-6 col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Equity Distribution
+        </div>
+        <div class="card-block">
+          <div class="card">
+            <div class="card-block">
+              <div class="chart-wrapper">
+                <canvas baseChart class="chart"
+                [data]="polarAreaChartData"
+                [labels]="polarAreaChartLabels"
+                [legend]="polarAreaLegend"
+                [chartType]="polarAreaChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+    <div class="col-sm-6 col-md-6">
+      <div class="card">
+        <div class="card-header">
+        Stake Holding History
+        </div>
+         <div class="row" style="margin:10px 0px;">
+          <div class="col-md-8 col-sm-6 col-xs-12">
+            <angular2-multiselect [data]="mycompany" [(ngModel)]="pSelectCompany2" 
+                [settings]="dropdownSettings2" 
+                (onSelect)="onItemSelect2($event)" 
+                (onDeSelect)="OnItemDeSelect2($event)"
+                (onSelectAll)="onSelectAll2($event)"
+                (onDeSelectAll)="onDeSelectAll2($event)">
+            </angular2-multiselect>
+
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <select class="form-control" (change)="stakeFilter()" [(ngModel)]="stakeYear">
+                   <option [value]="2016">2015-2016</option>
+                </select>
+            </div>
+          </div>
+        <div class="card-block">
+            <div class="chart-wrapper">
+              <canvas baseChart class="chart"
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+           </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+    <div class="col-sm-6 col-md-6">
+      <div class="card">
+        <div class="card-header">
+         Portfolio Performance
+        </div>
+         <div class="row" style="margin:10px 0px;">
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <angular2-multiselect [data]="mycompany" [(ngModel)]="pSelectCompany" 
+                [settings]="dropdownSettings" 
+                (onSelect)="onItemSelect($event)" 
+                (onDeSelect)="OnItemDeSelect($event)"
+                (onSelectAll)="onSelectAll($event)"
+                (onDeSelectAll)="onDeSelectAll($event)">
+            </angular2-multiselect>
+            
+              <!-- <select (change)="bsheetFilter()" class="form-control"  [(ngModel)]="company">
+                  <option *ngFor="let c of mycompany" [value]="c">{{c}}</option>
+                </select> -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <select class="form-control" (change)="assetsChange()" [(ngModel)]="blancesheet">
+                   <option value="Balance Sheet">Balance Sheet </option>
+                   <option *ngFor="let b of blancesheetArr" [value]="b">{{b}}</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <select class="form-control"  (change)="assetsFilter()" [(ngModel)]="assets">
+                  <option value="Assets">Assets</option>
+                   <option *ngFor="let a of assetsArr" [value]="a">{{a}}</option>
+                </select>
+            </div>
+          </div>
+        <div class="card-block">
+          <div class="chart-wrapper">
+            <canvas baseChart class="chart"
+            [data]="doughnutChartData"
+            [labels]="doughnutChartLabels"
+            [chartType]="doughnutChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+          </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+
+    <div class="col-sm-6 col-md-12">
+      <div class="card">
+        <div class="card-header">
+        Relationship
+        </div>
+         <div class="row" style="margin:10px 0px;">
+          <div class="col-md-6 col-sm-6 col-xs-12">
+              <select class="form-control" >
+                  <option value="Business Activity">People</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <select class="form-control">
+                  <option>Peers</option>
+                </select>
+            </div>
+          </div>
+        <div class="card-block">
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+        </div>
+      </div>
+    </div><!--/.col-->
+    <div class="col-sm-6 col-md-12">
+      <div class="card">
+        <div class="card-header">
+         News & Social
+        </div>
+        <div class="row" style="margin:10px 0px;">
+          <div class="col-md-3 col-sm-6 col-xs-12">
+              <select class="form-control" #t (change)="newsFilter()" [(ngModel)]="category" >
+                  <option value="news">News</option>
+                  <option value="social">Social</option>
+                  <option value="legal">Legal</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <select class="form-control" #type (change)="newsFilter()" [(ngModel)]="topic">
+                  <option  value="all">All</option>
+                  <option *ngFor="let c of news_topic" [value]="c">{{c}}</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <ng2-datepicker name="fromDateObj" class="form-control" (ngModelChange)="newsFilterFromDate($event)"  [options]="options" [(ngModel)]="fromDateObj"></ng2-datepicker>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                  <ng2-datepicker class="form-control" [options]="options" (ngModelChange)="newsFilterToDate($event)" [(ngModel)]="toDateObj"></ng2-datepicker>
+            </div>
+        </div>
+        <div class="card-block">
+        <canvas baseChart class="chart"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColours"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </div>
+    </div><!--/.col-->
+     <div class="col-sm-6 col-md-12">
+      <div class="card">
+        <div class="card-block">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+              <tr>
+                <th>date</th>
+                <th>topic</th>
+                <th>{{heading}}</th>
+                <th width="40%">Description</th>
+              </tr>
+              <tr *ngFor="let item of newslegalsocial;" >
+                <td>{{item.Date}}</td>
+                <td>{{item.Topic}}</td>
+                <td><a href="{{item.URL}}" target="_blank">{{item.URL}}</a></td>
+                <td>{{item.Description}}</td>
+              </tr> 
+            </table>
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div><!--/.row-->
+</div>

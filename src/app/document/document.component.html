@@ -1,0 +1,32 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-6 col-md-12"  *ngFor="let itemDoc of documentList;">
+      <div class="card">
+        <div class="card-header">
+            {{itemDoc.CategoryName}}
+        </div>
+        
+     <div class="col-sm-6 col-md-12">
+      <div class="card">
+        <div class="card-block">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+              <tr>
+                <th>date</th>
+                <th>title</th>
+                <th>Action</th>
+              </tr>
+              <tr  *ngFor="let item of itemDoc.data;">
+                <td>{{item.Date}}</td>
+                <td>{{item.DocumentName}}</td>
+                <td><a href="{{item.Path}}" target="_blank">View/Download</a></td>
+               
+              </tr> 
+            </table>
+        </div>
+      </div>
+      </div><!--/.col-->
+      </div>
+    </div>
+    
+  </div>
+</div>

@@ -1,0 +1,337 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-6 col-md-4">
+      <div class="card">
+        <div class="card-header">
+          Company Overview
+        </div>
+        <div class="card-block">
+        {{company_data}} is {{type}} {{class}} entity incorporated {{date}} in {{location}}
+          <br />
+    <a  style="color: #20a8d8;cursor:pointer;" data-toggle="modal"  (click)="largeModal.show()" >See more</a>
+        <div class="snapshot">
+            <h3>snapshot</h3>
+            <ul class="snap-key">
+                <li> <span>Director</span><em>{{director}} Director</em></li>
+                <li> <span>Charges</span><em>{{charges}} Charges</em></li>
+                 
+            </ul>
+        </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+    <div class="col-sm-6 col-md-4">
+      <div class="card">
+        <div class="card-header">
+         TURNOVER DISTRIBUTION
+        </div>
+        <div class="row" style="margin:10px 0px;">
+          <div class="col-md-6 col-sm-6 col-xs-12">
+              
+            </div>
+            
+            <div class="col-md-12 col-sm-6 col-xs-12">
+              <select class="form-control" #t (change)="business_select(t.value)" >
+                  <option value="2016">2016</option>
+                  <option value="2017">2017</option>
+                  <option value="2015">2015</option>
+                </select>
+            </div>
+        </div>
+        <div class="card-block">
+         <canvas baseChart class="chart"
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [chartType]="doughnutChartType"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+      <div class="card">
+        <div class="card-header">
+          EQUITY SPLIT
+        </div>
+        <div class="card-block">
+         <canvas baseChart class="chart"
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </div>
+    </div><!--/.col-->
+    <!--/.col-->
+    <div class="col-sm-6 col-md-6">
+      <div class="card">
+        <div class="card-header">
+         SUBSIDIARY
+        </div>
+        <!--div class="row" style="margin:10px 0px;">
+          <div class="col-md-12 col-sm-6 col-xs-12">
+              <select class="form-control"   >
+                  <option *ngFor="let c of business_activity" >{{c.name}}</option>
+                </select>
+            </div>
+        </div-->
+        <div class="card-block">
+          <div style="margin:0 auto; max-width: 350px; height: auto;">
+           <canvas baseChart class="chart"
+            [data]="polarAreaChartData"
+            [labels]="polarAreaChartLabels"
+            [legend]="polarAreaLegend"
+            [chartType]="polarAreaChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-6">
+      <accordion>
+        <accordion-group heading="ROC Details" [isOpened]="true">
+            <table border="0" cellpadding="0" cellspacing="0" class="table" width="100%">
+              <tbody>
+                <tr>
+                  <th>CIN</th>
+                  <th>{{cin}}</th>
+                </tr>
+                <tr>
+                  <td>Compnay Name</td>
+                  <td>{{company_name }}</td>
+                </tr>
+                <tr>
+                  <td>Company Category</td>
+                  <td>{{company_category }}</td>
+                </tr>
+                <tr>
+                  <td>Capital</td>
+                  <td>{{Authorized_Capital_Rs}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="clearfix"></div>
+        </accordion-group>
+        <accordion-group heading="ROC Charges">
+            <table border="0" cellpadding="0" cellspacing="0" class="table" width="100%">
+              <tbody>
+                <tr>
+                  <th>Name</th>
+                  <th>Details</th>
+                </tr>
+                <tr *ngFor="let item of charge_table;" >
+                <td>{{item.key}}</td>
+                <td>{{item.value}}</td>
+              </tr> 
+              </tbody>
+            </table>
+            <div class="clearfix"></div>
+        </accordion-group>
+        <accordion-group heading="Director">
+            <table border="0" cellpadding="0" cellspacing="0" class="table" width="100%">
+              <tbody>
+                <tr>
+                  <th>DIN</th>
+                  <th>Name</th>
+                </tr>
+                <tr *ngFor="let item of diretcor_data;" >
+                <td><a style="cursor:pointer" (click)="director_function(item.DIN)" >{{item.DIN}}</a></td>
+                <td>{{item.Name}}</td>
+              </tr> 
+              </tbody>
+            </table>  
+            <div class="clearfix"></div>
+        </accordion-group>
+        <accordion-group heading="Equity">
+            <table border="0" cellpadding="0" cellspacing="0" class="table" width="100%">
+              <tbody>
+                <tr>
+                  <th>TYpe</th>
+                  <th>Amount</th>
+                </tr>
+                <tr>
+                 <td>Capital</td>
+                <td>{{Authorized_Capital_Rs}}</td>
+              </tr> 
+              </tbody>
+            </table>  
+            <div class="clearfix"></div>
+        </accordion-group>
+        
+    </accordion>
+    </div><!--/.col-->
+    <div class="col-sm-6 col-md-12">
+      <div class="card">
+        <div class="card-header">
+         Credit Rating
+        </div>
+        <div class="row" style="margin:10px 0px;">
+          <div class="col-md-3 col-sm-6 col-xs-12">
+              <select class="form-control" #a (change)="agency_function()" [(ngModel)]="agency" >
+                  <option value="Care Ratings">Care Ratings</option>
+                  <option value="CRISIL">CRISIL</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12"  >
+                <select class="form-control" #a_t (change)="agency_type_function($event.target)" [(ngModel)]="atType" >
+                  <option  value="all">All</option>
+                  <option *ngFor="let c of att" [value]="c">{{c}}</option>
+                </select>
+            </div>
+             <div class="col-md-3 col-sm-6 col-xs-12">
+              <ng2-datepicker name="fromDateObj" class="form-control" (ngModelChange)="newsFilterFromDate1($event)"  [options]="options1" [(ngModel)]="fromDateObj1"></ng2-datepicker>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                  <ng2-datepicker class="form-control" [options]="options1" (ngModelChange)="newsFilterToDate1($event)" [(ngModel)]="toDateObj1"></ng2-datepicker>
+            </div>
+        </div>
+        <div class="card-block">
+          <div style="margin:0 auto; max-width: 800px; height: auto;">
+            <canvas baseChart class="chart"
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColours"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"></canvas>
+          </div>
+        </div>
+        <div class="card-block">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+              <tr>
+                <th>Date</th>
+                <th>Agency</th>
+                <th>Instrument</th>
+                <th width="40%">Rating</th>
+              </tr>
+              <tr *ngFor="let item of rating;" >
+                <td>{{ item.Date.$date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{item.rating}}</td>
+                <td>{{item.type}}</td>
+                <td>{{item.given_rating}}</td>
+              </tr> 
+            </table>
+        </div>
+        
+
+      </div>
+    </div><!--/.col-->
+    <div class="col-sm-6 col-md-12">
+      <div class="card">
+        <div class="card-header">
+         News,Legal
+        </div>
+        <div class="row" style="margin:10px 0px;">
+          <div class="col-md-3 col-sm-6 col-xs-12">
+              <select class="form-control" #ts (change)="dataselect(ts.value)" [(ngModel)]="category" >
+                  <option value="news">News</option>
+                  <option value="social">Social</option>
+                  <option value="legal">Legal</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12" >
+                <select class="form-control" #types (change)="dataselect_sub($event.target)" [(ngModel)]="subscategory" >
+                  <option  value="all">All</option>
+                  <option *ngFor="let c of news_topic" [value]="c">{{c}}</option>
+                </select>
+            </div>
+             <div class="col-md-3 col-sm-6 col-xs-12">
+              <ng2-datepicker name="fromDateObj" class="form-control" (ngModelChange)="newsFilterFromDate($event)"  [options]="options" [(ngModel)]="fromDateObj"></ng2-datepicker>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                  <ng2-datepicker class="form-control" [options]="options" (ngModelChange)="newsFilterToDate($event)" [(ngModel)]="toDateObj"></ng2-datepicker>
+            </div>
+        </div>
+        <div class="card-block">
+         <div class="card-block">
+          <canvas baseChart class="chart"
+          [datasets]="lineChartData1"
+          [labels]="lineChartLabels1"
+          [options]="lineChartOptions"
+          [colors]="lineChartColours"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+        </div>
+        </div>
+        <div class="card-block">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table" *ngIf="ok">
+              <tr>
+                <th>date</th>
+                <th>topic</th>
+                <th>Title</th>
+                <th width="40%">Description</th>
+              </tr>
+              <tr *ngFor="let item of newslegalsocial;" >
+                <td>{{ item.Date.$date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{item.Topic}}</td>
+                <td><a style="cursor: pointer;" data-toggle="modal"  (click)="myModal.show();iframe_show(item.URL)" > {{item.Title}}</a></td>
+                <td>{{item.Description}}</td>
+              </tr> 
+            </table>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table" *ngIf="notok">
+              <tr>
+                <th>date</th>
+                <th>Petitioner</th>
+                <th>Respondent</th>
+                <th>Judge</th>
+                <th>Court</th>
+                
+                <th width="40%">Description</th>
+              </tr>
+              <tr *ngFor="let item of newslegalsocial;" >
+                <td>{{ item.Date.$date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{item.Petitioner}}</td>
+                <td>{{item.Respondent}}</td>
+                <td>{{item.Judge}}</td>
+                <td>{{item.Court}}</td>
+                
+                <td>{{item.Description}}</td>
+              </tr> 
+            </table>
+        </div>
+        
+
+      </div>
+    </div>
+  </div><!--/.row-->
+</div>
+<div bsModal #largeModal1="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Company Details</h4>
+        <button type="button" class="close" (click)="largeModal1.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{company_data}} is {{type}} {{class}} entity incorporated {{date}} in {{location}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="largeModal1.hide()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+<div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+        <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <iframe [src]="ifr">
+            <p>Your browser does not support iframes.</p>
+      </iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="myModal.hide()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>

@@ -1,0 +1,86 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <!--/.col-->
+    <div class="col-sm-6 col-md-12">
+      <div class="card">
+        <div class="card-header">
+         Legal
+        </div>
+        <div class="row" style="margin:10px 0px;">
+          <div class="col-md-3 col-sm-6 col-xs-12">
+              <select class="form-control" #ts (change)="dataselect(ts.value)" [(ngModel)]="category" >
+                  <option value="legal">Legal</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12" >
+                <select class="form-control" #types (change)="dataselect_sub($event.target)" [(ngModel)]="subscategory" >
+                  <option  value="all">All</option>
+                  <option *ngFor="let c of news_topic" [value]="c">{{c}}</option>
+                </select>
+            </div>
+           <div class="col-md-3 col-sm-6 col-xs-12">
+              <ng2-datepicker name="fromDateObj" class="form-control" (ngModelChange)="newsFilterFromDate($event)"  [options]="options" [(ngModel)]="fromDateObj"></ng2-datepicker>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                  <ng2-datepicker class="form-control" [options]="options" (ngModelChange)="newsFilterToDate($event)" [(ngModel)]="toDateObj"></ng2-datepicker>
+            </div>
+        </div>
+        <div class="card-block">
+         <div class="card-block">
+          <canvas baseChart class="chart"
+          [datasets]="lineChartData1"
+          [labels]="lineChartLabels1"
+          [options]="lineChartOptions"
+          [colors]="lineChartColours"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+        </div>
+        </div>
+        <div class="card-block">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+              <tr>
+                <th>date</th>
+                <th>Petitioner</th>
+                <th>Respondent</th>
+                <th>Judge</th>
+                <th>Court</th>
+                
+                <th width="40%">Description</th>
+              </tr>
+              <tr *ngFor="let item of newslegalsocial;" >
+                <td>{{ item.Date.$date | date: 'dd/MM/yyyy'}}</td>
+                <td><a style="cursor: pointer;" data-toggle="modal"  (click)="largeModal.show();legal_data(i)" >{{item.Petitioner}}</a></td>
+                <td>{{item.Respondent}}</td>
+                <td>{{item.Judge}}</td>
+                <td>{{item.Court}}</td>
+                
+                <td>{{item.Description}}</td>
+              </tr> 
+            </table>
+        </div>
+        
+
+      </div>
+    </div>
+  </div><!--/.row-->
+</div>
+<div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Legal Details</h4>
+        <button type="button" class="close" (click)="largeModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Here is Dummy text</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="largeModal.hide()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>

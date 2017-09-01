@@ -1,0 +1,69 @@
+<div class="app flex-row align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card-group mb-0">
+          <div class="card p-2">
+            <div class="card-block">
+              <h1>Login</h1>
+              <p class="text-muted">Sign In to your account</p>
+              {{error}}
+              <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+              <div class="input-group mb-1" [ngClass]="{ 'has-danger': f.submitted && !email.valid }">
+                <span class="input-group-addon"><i class="icon-user"></i></span>
+                <input type="text" class="form-control" placeholder="Email" name="email" [(ngModel)]="model.email" #email="ngModel" required>
+                <br/>
+                <div *ngIf="f.submitted && !email.valid" class="help-block">
+					<div *ngIf="f.submitted && !email.valid && email.untouched" class="help-block">
+						EMAIL is required
+					</div>
+					<div *ngIf="f.submitted && !email.valid && email.errors && email.touched && (email.dirty || email.touched)"
+     class="alert alert-danger" class="help-block">
+					<div [hidden]="!email.errors.required">
+							EMAIL is required
+					</div>
+					</div>
+				</div>
+				
+              </div>
+              <div class="input-group mb-2" [ngClass]="{ 'has-danger': f.submitted && !password.valid }">
+                <span class="input-group-addon"><i class="icon-lock"></i></span>
+                <input type="password" class="form-control" placeholder="Password" name="password" [(ngModel)]="model.password" #password="ngModel" minlength=2 required>
+                <br/>
+                
+              </div>
+			  <div *ngIf="f.submitted && !password.valid" class="help-block">
+					<div *ngIf="f.submitted && !password.valid && password.untouched" class="help-block">
+						Password is required
+					</div>
+					<div *ngIf="f.submitted && !password.valid && password.errors && password.touched && (password.dirty || password.touched)" class="help-block">
+						<div [hidden]="!password.errors.required">Password is required</div>
+						<div [hidden]="!password.errors.minlength">minlenght</div>
+					</div>
+				</div>
+              <div class="row">
+                <div class="col-6">
+                  <button [disabled]="loading" class="btn btn-sm btn-primary"><i class="fa fa-user"></i> Login</button>
+                  <img *ngIf="loading" src="assets/images/loading.gif" />
+                </div>
+                <div class="col-6 text-right">
+                  <a [routerLink]="['/forgot']"  class="btn btn-link px-0">Forgot password?</a>
+                </div>
+              </div>
+              </form>
+            </div>
+          </div>
+          <div class="card card-inverse card-primary py-3 hidden-md-down" style="width:44%">
+            <div class="card-block text-center">
+              <div>
+                <h2>Sign up</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <a [routerLink]="['/signup']" type="button" class="btn btn-primary active mt-1">Register Now!</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

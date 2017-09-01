@@ -1,0 +1,115 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-6 col-md-12">
+      <div class="card">
+        <div class="card-header">
+          {{url_t}}
+        </div>
+        <div class="card-block">
+         
+          <div class="comp-profile">
+            <figure></figure>
+              <div class="comp-text" *ngIf="yes">
+                <p>Company Name : {{company_data}}</p>
+                <p class="p">Location : {{location}}</p>
+                <p class="p">Changes</p>
+                <span class="icon1"><img src="assets/img/comp-icon1.png" class="" alt="comp-icon1"></span>
+                <span class="icon2"><img src="assets/img/comp-icon2.png" class="" alt="comp-icon1"></span>
+                <span class="icon3"><img src="assets/img/comp-icon3.png" class="" alt="comp-icon1"></span>
+              </div>
+              <div class="comp-text" *ngIf="yes_d">
+                <p style="color:#83b5d4">{{company_data}}</p>
+                <p class="p"> {{location}}</p>
+                <p class="p">Changes</p>
+                <span class="icon1"><img src="assets/img/comp-icon1.png" class="" alt="comp-icon1"></span>
+                <span class="icon2"><img src="assets/img/comp-icon2.png" class="" alt="comp-icon1"></span>
+                <span class="icon3"><img src="assets/img/comp-icon3.png" class="" alt="comp-icon1"></span>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-12">
+      <div class="card">
+        <div class="card-header">
+          {{url_t}} Update
+        </div>
+        <div class="row" style="margin:10px 0px;">
+          <div class="col-md-3 col-sm-6 col-xs-12">
+              <select class="form-control" #t (change)="dataselect(t.value)" [(ngModel)]="category" >
+                  <option value="news">News</option>
+                  <option value="social">Social</option>
+                  <option value="legal">Legal</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12" #type (change)="dataselect_sub($event.target)">
+                <select class="form-control" >
+                  <option  value="all">All</option>
+                  <option *ngFor="let c of news_topic" [value]="c">{{c}}</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <select class="form-control">
+                  <option>To Date </option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <select class="form-control">
+                  <option>From Date </option>
+                </select>
+            </div>
+            <div class="clearfix" style="margin: 10px 0px; float: left; width: 100%;"></div>
+            <div class="col-md-6">
+              <canvas baseChart class="chart"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColours"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+              </canvas>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-4 col-md-offset-2">
+              <canvas baseChart class="chart"
+                [data]="doughnutChartData"
+                [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType">
+              </canvas>
+            </div>
+        </div>
+
+      </div>
+    </div><!--/.col-->
+    <!--/.col-->
+    <div class="col-sm-6 col-md-12">
+      <div class="card">
+        <div class="card-header">
+         {{heading}}
+        </div>
+        <div class="card-block">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+              <tr>
+                <th>date</th>
+                <th>topic</th>
+                <th>{{heading}}</th>
+                <th width="40%">Description</th>
+              </tr>
+              <tr *ngFor="let item of newslegalsocial;" >
+                <td>{{ item.Date.$date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{item.Topic}}</td>
+                <td><a href="{{item.URL}}" target="_blank">{{item.URL}}</a></td>
+                <td>{{item.Description}}</td>
+              </tr> 
+            </table>
+        </div>
+      </div>
+    </div><!--/.col-->
+    <!--/.col-->
+   <!--/.col-->
+    
+  </div><!--/.row-->
+</div>
+
